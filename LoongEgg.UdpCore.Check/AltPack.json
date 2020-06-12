@@ -1,0 +1,24 @@
+{
+  "PackName": "AltitudePack",
+  "PackID": 233,
+  "Items": [
+    {
+      "Name": "GPS_Alt",
+      "Unit": "m",
+      "Length": 2,
+      "Resolution": 1.0,
+      "Signed": true,
+      "Maximum": 100,
+      "Minimum": -100
+    },
+    {
+      "Name": "BRAVO_Alt",
+      "Unit": "m",
+      "Length": 2,
+      "Resolution": 0.5,
+      "Signed": false,
+      "Maximum": 100,
+      "Minimum": -100
+    }
+  ]
+}

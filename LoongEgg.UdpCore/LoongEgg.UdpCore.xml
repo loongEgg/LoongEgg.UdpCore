@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LoongEgg.UdpCore</name>
+    </assembly>
+    <members>
+        <member name="T:LoongEgg.UdpCore.DataDefinition">
+            <summary>
+            单个数据项定义
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.DataDefinition.Name">
+            <summary>
+            数据名称
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.DataDefinition.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.DataDefinition.Length">
+            <summary>
+            字节长度
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.DataDefinition.Resolution">
+            <summary>
+            数据精度，精度乘以传进来的数据=实际的数值
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.DataDefinition.Signed">
+            <summary>
+            有无符号？
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.DataDefinition.Maximum">
+            <summary>
+            数据的最大值
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.DataDefinition.Minimum">
+            <summary>
+            数据的最小值
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.DataDefinition.ToString">
+            <summary>
+            打印数据定义信息到字符串
+            </summary>
+            <returns>格式化后的定义信息</returns>
+        </member>
+        <member name="T:LoongEgg.UdpCore.JsonPackDefinition">
+            <summary>
+            数据包，可以直接从json文件反序列化
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.JsonPackDefinition.PackName">
+            <summary>
+            当前包的名字
+            </summary> 
+        </member>
+        <member name="P:LoongEgg.UdpCore.JsonPackDefinition.PackID">
+            <summary>
+            当前包的ID号
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.JsonPackDefinition.Length">
+            <summary>
+            包的字节总长度
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.JsonPackDefinition.Items">
+            <summary>
+            数据对象定义的集合
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.JsonPackDefinition.DeserializeFromFile(System.String)">
+            <summary>
+            从指定的文件反序列化数据包的定义
+            </summary>
+            <param name="path">文件路径</param>
+            <returns>反序列化后的数据包</returns>
+        </member>
+        <member name="M:LoongEgg.UdpCore.JsonPackDefinition.SerializeToJsonString">
+            <summary>
+            将协议转换为json字符串形式
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:LoongEgg.UdpCore.JsonPackDefinition.ToString">
+            <summary>
+            将所有的数据协议项转换为一个字符串
+            </summary> 
+        </member>
+        <member name="T:LoongEgg.UdpCore.UdpSocket">
+            <summary>
+            Udp收发套接字
+            </summary>
+        </member>
+    </members>
+</doc>
