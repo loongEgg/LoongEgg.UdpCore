@@ -29,6 +29,11 @@ namespace LoongEgg.UdpCore
         public int Length { get; set; }
 
         /// <summary>
+        /// 大端在前？
+        /// </summary>
+        public bool BigEndian { get; set; }
+
+        /// <summary>
         /// 数据精度，精度乘以传进来的数据=实际的数值
         /// </summary>
         public float Resolution { get; set; }

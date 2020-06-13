@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="LoongEgg.LoongLog" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LoongEgg.UdpCore\LoongEgg.UdpCore.csproj" />
+    <ProjectReference Include="..\..\LoongEgg.UdpCore\LoongEgg.UdpCore.csproj" />
   </ItemGroup>
 
 </Project>
