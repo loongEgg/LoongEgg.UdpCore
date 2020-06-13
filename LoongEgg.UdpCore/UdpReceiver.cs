@@ -1,9 +1,8 @@
-﻿using System.Diagnostics;
+﻿using LoongEgg.LoongLog;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using LoongEgg.LoongLog;
 
 /* 
  | 个人微信：InnerGeeker
@@ -64,14 +63,15 @@ namespace LoongEgg.UdpCore
                     byte[] datagram = result.Buffer; ;
                     string received = Encoding.UTF8.GetString(datagram);
                     Logger.Info($"Received (from {result.RemoteEndPoint.Address.ToString()})-> {received}");
-                    completed = (received == "closed");
+                    completed = (received == "stop");
                 } while (!completed);
-                Logger.Debug("Receiver closing");
-
+                 
                 if (GroupAddress != null)
                 {
                     client.DropMulticastGroup(IPAddress.Parse(GroupAddress));
                 }
+                
+                Logger.Info("Receiver closing...s"); 
             }
         }
     }

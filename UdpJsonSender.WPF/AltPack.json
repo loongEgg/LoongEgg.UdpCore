@@ -19,7 +19,7 @@
       "BigEndian": false,
       "Resolution": 0.5,
       "Signed": false,
-      "Maximum": 100,
+      "Maximum": 500,
       "Minimum": -100
     }
   ]

@@ -2,11 +2,29 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <Authors>LoongEgg</Authors>
+    <Version>1.0.1</Version>
+    <Copyright>Copyright 2020 C LoongEgg</Copyright>
+    <PackageTags>Udp, Json</PackageTags>
+    <Description>使用Json进行配置的Udp收发器
+
+An Udp Sender &amp; Receiver using json file to configure</Description>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://github.com/loongEgg/LoongEgg.UdpCore/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/loongEgg/LoongEgg.UdpCore</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/loongEgg/LoongEgg.UdpCore</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
     <DocumentationFile>E:\Published\LoongEgg.UdpCore\LoongEgg.UdpCore\LoongEgg.UdpCore.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="E\**" />
+    <EmbeddedResource Remove="E\**" />
+    <None Remove="E\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="LoongEgg.LoongLog" Version="2.0.0" />

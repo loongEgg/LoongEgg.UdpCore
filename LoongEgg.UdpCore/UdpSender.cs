@@ -1,6 +1,5 @@
 ﻿using LoongEgg.LoongLog;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -48,7 +47,12 @@ namespace LoongEgg.UdpCore
             GroupAddress = groupAddress;
             string hostName = Dns.GetHostName();
             EndPoint = GetIPEndPoint(port, isBroadcast, hostName, groupAddress, isIpV6).Result;
-            Debug.WriteLine($"IPEndPoint: {nameof(port)}={port}, i{nameof(isBroadcast)}={isBroadcast}, {nameof(hostName)}={hostName}, {nameof(groupAddress)}={groupAddress}, {nameof(isIpV6)}={isIpV6}");
+            Logger.Info("Udp sender initialized");
+            Logger.Info(
+                $"IPEndPoint: "
+                + $"{nameof(port)}={port}, i{nameof(isBroadcast)}={isBroadcast}, "
+                + $"{nameof(hostName)}={hostName}, {nameof(groupAddress)}={groupAddress}, "
+                + $"{nameof(isIpV6)}={isIpV6}");
         }
 
         /// <summary>
@@ -64,7 +68,7 @@ namespace LoongEgg.UdpCore
             int port,
             bool isBroadcast,
             string hostName,
-            string groupAddress ,
+            string groupAddress,
             bool isIpV6)
         {
             IPEndPoint endpoint;
@@ -73,7 +77,7 @@ namespace LoongEgg.UdpCore
                 if (isBroadcast)
                 {
                     endpoint = new IPEndPoint(IPAddress.Broadcast, port);
-                    Logger.Debug($"{nameof(isBroadcast)}={isBroadcast}, {nameof(port)}={port} ");
+                    Logger.Info($"{nameof(isBroadcast)}={isBroadcast}, {nameof(port)}={port} ");
                 }
                 else if (hostName != null)
                 {
@@ -92,12 +96,12 @@ namespace LoongEgg.UdpCore
                         ).FirstOrDefault();
                     }
                     endpoint = new IPEndPoint(address, port);
-                    Logger.Debug($"{nameof(hostName)}={hostName}, {nameof(address)}={address}, {nameof(isIpV6)}={isIpV6}"); 
+                    Logger.Info($"{nameof(hostName)}={hostName}, {nameof(address)}={address}, {nameof(isIpV6)}={isIpV6}");
                 }
                 else if (groupAddress != null)
                 {
                     endpoint = new IPEndPoint(IPAddress.Parse(groupAddress), port);
-                    Logger.Debug($"{nameof(groupAddress)}={groupAddress}, {nameof(port)}={port} ");
+                    Logger.Info($"{nameof(groupAddress)}={groupAddress}, {nameof(port)}={port} ");
 
                 }
                 else
@@ -117,7 +121,7 @@ namespace LoongEgg.UdpCore
         /// </summary>
         /// <param name="message">待发送的信息</param>
         /// <returns></returns>
-        public async void  SendAsync(string message)
+        public async void SendAsync(string message)
         {
             try
             {
@@ -128,9 +132,10 @@ namespace LoongEgg.UdpCore
                     {
                         client.JoinMulticastGroup(IPAddress.Parse(GroupAddress));
                     }
-
+                    Logger.Info($"Sending...{message}");
                     byte[] datagram = Encoding.UTF8.GetBytes(message);
                     await client.SendAsync(datagram, datagram.Length, EndPoint);
+                    Logger.Debug($"Sending finished");
 
                     if (GroupAddress != null)
                     {
@@ -143,6 +148,6 @@ namespace LoongEgg.UdpCore
                 throw ex;
             }
         }
-         
+
     }
 }

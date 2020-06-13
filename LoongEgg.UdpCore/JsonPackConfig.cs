@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,14 +26,14 @@ namespace LoongEgg.UdpCore
         public string PackName { get; set; } = "[Undefined]";
 
         /// <summary>
-        /// 当前包的ID号
+        /// 当前包的ID号, 注意为单字节无符号数
         /// </summary>
-        public int PackID { get; set; }
+        public byte PackID { get; set; }
 
         /// <summary>
-        /// 包的字节总长度
+        /// 包的字节总长度, 注意最大长度为255
         /// </summary>
-        public int Length
+        public byte Length
         {
             get
             {
@@ -42,13 +41,13 @@ namespace LoongEgg.UdpCore
                 if (Items.Any())
                 {
                     Items.ForEach(i => count += i.Length);
-                    return count;
+                    return (byte)count;
                 }
 
                 return 0;
             }
         }
-
+        
         /// <summary>
         /// 数据对象定义的集合
         /// </summary>
