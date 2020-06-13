@@ -1,6 +1,6 @@
 # LoongEgg.UdpCore
 使用Json进行配置的Udp收发器
-An Udp Sender & Receiver using json file to confige
+An Udp Sender & Receiver using json file to configure
 # Feature
 - Cross platform & cross framework
 - Udp端口收发功能正常, UdpReceiver & UdpSender work fine
