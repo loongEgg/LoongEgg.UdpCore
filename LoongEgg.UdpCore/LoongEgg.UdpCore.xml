@@ -55,6 +55,26 @@
             </summary>
             <returns>格式化后的定义信息</returns>
         </member>
+        <member name="T:LoongEgg.UdpCore.JsonConverter">
+            <summary>
+            Json序列化和反序列化工具
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.JsonConverter.Desireialize``1(System.String)">
+            <summary>
+            反序列化
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LoongEgg.UdpCore.JsonConverter.Serialize(System.Object)">
+            <summary>
+            序列化
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
         <member name="T:LoongEgg.UdpCore.JsonPackConfig">
             <summary>
             数据包，可以直接从json文件反序列化

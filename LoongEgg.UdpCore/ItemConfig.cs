@@ -6,8 +6,10 @@
  | 更改记录：
  |			 时间		版本		更改
  */
+using System.Collections.Generic;
+
 namespace LoongEgg.UdpCore
-{
+{ 
     /// <summary>
     /// 单个数据项定义
     /// </summary>
@@ -52,7 +54,7 @@ namespace LoongEgg.UdpCore
         /// 数据的最小值
         /// </summary>
         public float Minimum { get; set; }
-
+         
         /// <summary>
         /// 打印数据定义信息到字符串
         /// </summary>

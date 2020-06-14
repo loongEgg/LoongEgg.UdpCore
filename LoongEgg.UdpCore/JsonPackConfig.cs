@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 /*
  | 个人微信：InnerGeeker
@@ -40,7 +40,7 @@ namespace LoongEgg.UdpCore
                 int count = 0;
                 if (Items.Any())
                 {
-                    Items.ForEach(i => count += i.Length);
+                    Items.ToList().ForEach(i => count += i.Length);
                     return (byte)count;
                 }
 
@@ -51,7 +51,7 @@ namespace LoongEgg.UdpCore
         /// <summary>
         /// 数据对象定义的集合
         /// </summary>
-        public List<ItemConfig> Items { get; set; }
+        public ItemConfig[] Items { get; set; }
 
         /// <summary>
         /// 从指定的文件反序列化数据包的定义
@@ -72,7 +72,8 @@ namespace LoongEgg.UdpCore
         /// 将协议转换为json字符串形式
         /// </summary>
         /// <returns></returns>
-        public string SerializeToJsonString() => JsonConvert.SerializeObject(this, Formatting.Indented);
+        public string SerializeToJsonString() => JsonConverter.Serialize(this);
+        //public string SerializeToJsonString() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
         /// <summary>
         /// 将所有的数据协议项转换为一个字符串
@@ -83,7 +84,7 @@ namespace LoongEgg.UdpCore
             builder.AppendLine($"PackName={PackName}, PackID={PackID}:");
             if (Items.Any())
             {
-                Items.ForEach(
+                Items.ToList().ForEach(
                     i =>
                     {
                         builder.AppendLine(i.ToString());
