@@ -72,8 +72,8 @@ namespace LoongEgg.UdpCore
         /// 将协议转换为json字符串形式
         /// </summary>
         /// <returns></returns>
-        public string SerializeToJsonString() => JsonConverter.Serialize(this);
-        //public string SerializeToJsonString() => JsonConvert.SerializeObject(this, Formatting.Indented);
+        //public string SerializeToJsonString() => JsonConverter.Serialize(this);
+        public string SerializeToJsonString() => JsonConvert.SerializeObject(this, Formatting.Indented);
 
         /// <summary>
         /// 将所有的数据协议项转换为一个字符串

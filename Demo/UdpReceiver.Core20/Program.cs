@@ -10,7 +10,9 @@ namespace UdpReceiver.Core20
             Console.WriteLine("Hello World!");
 
             Logger.Enable(Loggers.ConsoleLogger | Loggers.DebugLogger);
+
             var receiver = new LoongEgg.UdpCore.UdpReceiver(2233);
+
             receiver.ReaderAsync().Wait();
 
             Console.WriteLine("Good bye~");

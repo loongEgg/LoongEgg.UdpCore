@@ -9,7 +9,7 @@ namespace UdpReceiver.Net45
         {
             Console.WriteLine("Hello World!");
 
-            Logger.Enable(Loggers.ConsoleLogger | Loggers.DebugLogger);
+            Logger.Enable(Loggers.ConsoleLogger);
             var receiver = new LoongEgg.UdpCore.UdpReceiver(2233);
             receiver.ReaderAsync().Wait();
 
