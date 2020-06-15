@@ -1,0 +1,13 @@
+﻿[*.cs]
+
+# IDE0060: 删除未使用的参数
+dotnet_code_quality_unused_parameters = all:silent
+
+# IDE0051: 删除未使用的私有成员
+dotnet_diagnostic.IDE0051.severity = silent
+
+# IDE0059: 不需要赋值
+csharp_style_unused_value_assignment_preference = discard_variable:silent
+
+# IDE0018: 内联变量声明
+csharp_style_inlined_variable_declaration = true:silent

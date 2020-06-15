@@ -30,6 +30,16 @@ An Udp Sender &amp; Receiver using json file to configure</Description>
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="config.udpreceiver.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config.udpreceiver.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LoongEgg.LoongLog" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>

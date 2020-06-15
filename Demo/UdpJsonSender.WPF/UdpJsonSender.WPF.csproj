@@ -109,7 +109,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoongEgg.UdpCore\LoongEgg.UdpCore.csproj">
+    <ProjectReference Include="..\..\LoongEgg.UdpCore\LoongEgg.UdpCore.csproj">
       <Project>{dc378f4d-dbb8-4a38-9b94-8223c818f4aa}</Project>
       <Name>LoongEgg.UdpCore</Name>
     </ProjectReference>

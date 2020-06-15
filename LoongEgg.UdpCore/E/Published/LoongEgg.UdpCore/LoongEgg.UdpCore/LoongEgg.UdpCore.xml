@@ -123,16 +123,6 @@
             Udp接收器
             </summary>
         </member>
-        <member name="F:LoongEgg.UdpCore.UdpReceiver.DefaultConfigFile">
-            <summary>
-            默认配置文件
-            </summary>
-        </member>
-        <member name="F:LoongEgg.UdpCore.UdpReceiver.Usage">
-            <summary>
-            使用说明
-            </summary>
-        </member>
         <member name="P:LoongEgg.UdpCore.UdpReceiver.Port">
             <summary>
             端口号
@@ -143,11 +133,6 @@
             组地址
             </summary>
         </member>
-        <member name="P:LoongEgg.UdpCore.UdpReceiver.Tag">
-            <summary>
-            接收器标识
-            </summary>
-        </member>
         <member name="M:LoongEgg.UdpCore.UdpReceiver.#ctor(System.Int32,System.String)">
             <summary>
             创建一个新的接收器
@@ -155,43 +140,11 @@
             <param name="port">端口号</param>
             <param name="groupAddress">组地址</param>
         </member>
-        <member name="M:LoongEgg.UdpCore.UdpReceiver.#ctor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
-        <member name="M:LoongEgg.UdpCore.UdpReceiver.DefaultConsole(System.Boolean)">
-            <summary>
-            默认控制台程序实现
-            </summary>
-            <param name="useDefaultConfig">default=true, 使用默认的配置文件</param>
-        </member>
         <member name="M:LoongEgg.UdpCore.UdpReceiver.ReaderAsync">
             <summary>
             接收器工作
             </summary> 
             <returns></returns>
-        </member>
-        <member name="M:LoongEgg.UdpCore.UdpReceiver.ReceiveAsync">
-            <summary>
-            接收器工作
-            </summary> 
-            <returns></returns>
-        </member>
-        <member name="M:LoongEgg.UdpCore.UdpReceiver.ToString">
-            <summary>
-            显示Tag、Port、GroupAddress等详细信息
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:LoongEgg.UdpCore.UdpReceiver.ParseCommandOptions(System.String[],System.Int32@,System.String@,System.String@)">
-            <summary>
-            将数组转义到确切的UDP配置定义
-            </summary>
-            <param name="args"></param>
-            <param name="port">端口号</param>
-            <param name="group">组地址</param>
-            <param name="tag">识别标签</param>
         </member>
         <member name="T:LoongEgg.UdpCore.UdpSender">
             <summary>

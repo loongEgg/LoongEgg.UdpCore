@@ -132,7 +132,7 @@ namespace LoongEgg.UdpCore
                     {
                         client.JoinMulticastGroup(IPAddress.Parse(GroupAddress));
                     }
-                    Logger.Info($"Sending...{message}");
+                    Logger.Info($"Sending > {message}");
                     byte[] datagram = Encoding.UTF8.GetBytes(message);
                     await client.SendAsync(datagram, datagram.Length, EndPoint);
                     Logger.Debug($"Sending finished");
