@@ -135,7 +135,6 @@ namespace LoongEgg.UdpCore
                     Logger.Info($"Sending > {message}");
                     byte[] datagram = Encoding.UTF8.GetBytes(message);
                     await client.SendAsync(datagram, datagram.Length, EndPoint);
-                    Logger.Debug($"Sending finished");
 
                     if (GroupAddress != null)
                     {

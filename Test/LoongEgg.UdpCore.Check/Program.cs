@@ -1,6 +1,7 @@
 ﻿using LoongEgg.LoongLog;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace LoongEgg.UdpCore.Check
 {
@@ -11,8 +12,6 @@ namespace LoongEgg.UdpCore.Check
             Logger.Enable(Loggers.ConsoleLogger);
             //JsonPackConfig_Check();
             DefaulConfig_Check();
-
-            Debugger.Break();
         }
 
         private static void JsonPackConfig_Check()
@@ -34,7 +33,14 @@ namespace LoongEgg.UdpCore.Check
 
         static void DefaulConfig_Check()
         {
-            UdpReceiver.DefaultConsole(false);
+            var receiver = UdpReceiver.DefaultConsole(false);
+            receiver.MessageRecieved += Receiver_MessageRecieved;
+            receiver.ReceiveAsync().Wait();
+        }
+
+        private static void Receiver_MessageRecieved(object sender, UdpReceivedEventArgs e)
+        {
+            Logger.Info($"buff: {String.Join(",", e.Buffer.Select(p => p.ToString()).ToArray())}");
         }
     }
 }

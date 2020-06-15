@@ -15,15 +15,45 @@ using System.Linq;
  | 主要用途：Udp接收器，并根据指定的json格式的数据包协议解析数据
  | 更改记录：
  | 时间         版本		更改
- | 2020-06-15  2.1.1    Udp接收器增加默认控制台，并且可以读取默认配置或者命令行交互配置        
+ | 2020-06-15  2.1.1    Udp接收器增加默认控制台DefaultConsole()，并且可以读取默认配置或者命令行交互配置
+ | 2020-06-15  2.1.1    Udp接收器增加 UdpReceivedEvent 事件 和 UdpReceivedEventArgs 参数，来处理新接收到的消息
  */
 namespace LoongEgg.UdpCore
 {
+    /// <summary>
+    /// Udp接收事件
+    /// </summary>
+    public delegate void UdpReceivedEvent(object sender, UdpReceivedEventArgs args);
+
+    /// <summary>
+    /// Udp接收事件参数
+    /// </summary>
+    public class UdpReceivedEventArgs: EventArgs
+    {
+        /// <summary>
+        /// 接收到的缓存信息
+        /// </summary>
+        public byte[] Buffer { get; set; }
+
+        /// <summary>
+        /// 默认构造器
+        /// </summary>
+        /// <param name="buffer"></param>
+        public UdpReceivedEventArgs(byte[] buffer)
+        {
+            Buffer = buffer;
+        }
+    }
     /// <summary>
     /// Udp接收器
     /// </summary>
     public class UdpReceiver
     {
+        /// <summary>
+        /// 接收到新的消息
+        /// </summary>
+        public event UdpReceivedEvent MessageRecieved;
+
         /// <summary>
         /// 默认配置文件
         /// </summary>
@@ -74,7 +104,7 @@ namespace LoongEgg.UdpCore
         /// 默认控制台程序实现
         /// </summary>
         /// <param name="useDefaultConfig">default=true, 使用默认的配置文件</param>
-        public static void DefaultConsole(bool useDefaultConfig = true)
+        public static UdpReceiver DefaultConsole(bool useDefaultConfig = true)
         {
             Logger.Info($"Try reading default UDP receiver config:{DefaultConfigFile}");
 
@@ -119,7 +149,7 @@ namespace LoongEgg.UdpCore
                     }
                 } while (unconfig);
             }
-            receiver?.ReceiveAsync().Wait();
+            return receiver;
         }
 
         /// <summary>
@@ -174,9 +204,10 @@ namespace LoongEgg.UdpCore
                 bool completed;
                 do
                 {
-                    Logger.Debug("Start Listening...Sending in stop to stop listening");
+                    Logger.Debug("Start Listening...Sending in [stop] to stop listening");
                     UdpReceiveResult result = await client.ReceiveAsync();
-                    byte[] datagram = result.Buffer; ;
+                    byte[] datagram = result.Buffer;
+                    MessageRecieved?.Invoke(this, new UdpReceivedEventArgs(datagram));
                     string received = Encoding.UTF8.GetString(datagram);
                     Logger.Info($"Received (from {result.RemoteEndPoint.Address}) > {received}");
                     completed = (received.ToLower() == "stop");

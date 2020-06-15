@@ -118,9 +118,35 @@
             将所有的数据协议项转换为一个字符串
             </summary> 
         </member>
+        <member name="T:LoongEgg.UdpCore.UdpReceivedEvent">
+            <summary>
+            Udp接收事件
+            </summary>
+        </member>
+        <member name="T:LoongEgg.UdpCore.UdpReceivedEventArgs">
+            <summary>
+            Udp接收事件参数
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpReceivedEventArgs.Buffer">
+            <summary>
+            接收到的缓存信息
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpReceivedEventArgs.#ctor(System.Byte[])">
+            <summary>
+            默认构造器
+            </summary>
+            <param name="buffer"></param>
+        </member>
         <member name="T:LoongEgg.UdpCore.UdpReceiver">
             <summary>
             Udp接收器
+            </summary>
+        </member>
+        <member name="E:LoongEgg.UdpCore.UdpReceiver.MessageRecieved">
+            <summary>
+            接收到新的消息
             </summary>
         </member>
         <member name="F:LoongEgg.UdpCore.UdpReceiver.DefaultConfigFile">
