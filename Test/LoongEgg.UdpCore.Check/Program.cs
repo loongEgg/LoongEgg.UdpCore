@@ -1,6 +1,5 @@
 ﻿using LoongEgg.LoongLog;
 using System;
-using System.Diagnostics;
 using System.Linq;
 
 namespace LoongEgg.UdpCore.Check
@@ -11,14 +10,15 @@ namespace LoongEgg.UdpCore.Check
         {
             Logger.Enable(Loggers.ConsoleLogger);
             //JsonPackConfig_Check();
-            DefaulConfig_Check();
+            //UdpReceiverDefaulConfig_Check();
+            UdpSenderCreatFromFile_Check();
         }
 
         private static void JsonPackConfig_Check()
         {
             try
             {
-                JsonPackConfig pack = JsonPackConfig.DeserializeFromFile("AltPack.json");
+                UdpPack pack = UdpPack.DeserializeFromFile("AltPack.json");
                 Console.WriteLine("Desializing...");
                 Console.WriteLine(pack.ToString());
 
@@ -31,11 +31,32 @@ namespace LoongEgg.UdpCore.Check
             }
         }
 
-        static void DefaulConfig_Check()
+        static bool isUdpWorking;
+        private static void UdpReceiverDefaulConfig_Check()
         {
-            var receiver = UdpReceiver.DefaultConsole(false);
+            if (isUdpWorking) return;
+            isUdpWorking = true;
+
+            var receiver = UdpReceiver.DefaultConsole(true);
             receiver.MessageRecieved += Receiver_MessageRecieved;
             receiver.ReceiveAsync().Wait();
+        }
+
+        private static void UdpSenderCreatFromFile_Check()
+        {
+            if (isUdpWorking) return;
+            isUdpWorking = true;
+
+            var sender = UdpSender.CreatFromConfig();
+            sender.Init();
+            bool stop = false;
+            Console.WriteLine("Enter a message or stop/s to exit");
+            do
+            {
+                string input = Console.ReadLine();
+                stop = input.ToLower() == "stop" | input.ToLower() == "s";
+                sender.SendAsync($"{input}");
+            } while (!stop);
         }
 
         private static void Receiver_MessageRecieved(object sender, UdpReceivedEventArgs e)

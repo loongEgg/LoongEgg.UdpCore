@@ -4,57 +4,6 @@
         <name>LoongEgg.UdpCore</name>
     </assembly>
     <members>
-        <member name="T:LoongEgg.UdpCore.ItemConfig">
-            <summary>
-            单个数据项定义
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.Name">
-            <summary>
-            数据名称
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.Unit">
-            <summary>
-            单位
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.Length">
-            <summary>
-            字节长度
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.BigEndian">
-            <summary>
-            大端在前？
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.Resolution">
-            <summary>
-            数据精度，精度乘以传进来的数据=实际的数值
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.Signed">
-            <summary>
-            有无符号？
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.Maximum">
-            <summary>
-            数据的最大值
-            </summary>
-        </member>
-        <member name="P:LoongEgg.UdpCore.ItemConfig.Minimum">
-            <summary>
-            数据的最小值
-            </summary>
-        </member>
-        <member name="M:LoongEgg.UdpCore.ItemConfig.ToString">
-            <summary>
-            打印数据定义信息到字符串
-            </summary>
-            <returns>格式化后的定义信息</returns>
-        </member>
         <member name="T:LoongEgg.UdpCore.JsonConverter">
             <summary>
             Json序列化和反序列化工具
@@ -75,53 +24,131 @@
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="T:LoongEgg.UdpCore.JsonPackConfig">
+        <member name="T:LoongEgg.UdpCore.UdpHelper">
+            <summary>
+            Udp工具类
+            </summary>
+        </member>
+        <member name="F:LoongEgg.UdpCore.UdpHelper.IntFailFlag">
+            <summary>
+            int类型转义失败标志
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpHelper.TryParseCommandParam(System.String[],System.String,System.String@)">
+            <summary>
+            根据key值获取响应的param -key param
+            </summary>
+            <param name="args">命令行参数数组</param>
+            <param name="key">目标key</param>
+            <param name="value">转义结果</param>
+            <returns> 
+                [false]:转义失败
+            </returns>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpHelper.TryParseCommandParam(System.String[],System.String,System.Int32@)">
+            <summary>
+            根据key值获取响应的param -key param
+            </summary>
+            <param name="args">命令行参数数组</param>
+            <param name="key">目标key</param>
+            <param name="value">转义结果, defalut=[-111000]转义失败</param>
+            <returns> 
+                [false]:转义失败
+            </returns>
+        </member>
+        <member name="T:LoongEgg.UdpCore.UdpItem">
+            <summary>
+            单个数据项定义
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpItem.Name">
+            <summary>
+            数据名称
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpItem.Unit">
+            <summary>
+            单位
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpItem.Length">
+            <summary>
+            字节长度
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpItem.Resolution">
+            <summary>
+            数据精度，精度乘以传进来的数据=实际的数值
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpItem.Signed">
+            <summary>
+            有无符号？
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpItem.Maximum">
+            <summary>
+            数据的最大值
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpItem.Minimum">
+            <summary>
+            数据的最小值
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpItem.ToString">
+            <summary>
+            打印数据定义信息到字符串
+            </summary>
+            <returns>格式化后的定义信息</returns>
+        </member>
+        <member name="T:LoongEgg.UdpCore.UdpPack">
             <summary>
             数据包，可以直接从json文件反序列化
             </summary>
         </member>
-        <member name="P:LoongEgg.UdpCore.JsonPackConfig.PackName">
+        <member name="P:LoongEgg.UdpCore.UdpPack.BigEndian">
+            <summary>
+            大端在前？
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpPack.PackName">
             <summary>
             当前包的名字
             </summary> 
         </member>
-        <member name="P:LoongEgg.UdpCore.JsonPackConfig.PackID">
+        <member name="P:LoongEgg.UdpCore.UdpPack.PackID">
             <summary>
             当前包的ID号, 注意为单字节无符号数
             </summary>
         </member>
-        <member name="P:LoongEgg.UdpCore.JsonPackConfig.Length">
+        <member name="P:LoongEgg.UdpCore.UdpPack.Length">
             <summary>
             包的字节总长度, 注意最大长度为255
             </summary>
         </member>
-        <member name="P:LoongEgg.UdpCore.JsonPackConfig.Items">
+        <member name="P:LoongEgg.UdpCore.UdpPack.Items">
             <summary>
             数据对象定义的集合
             </summary>
         </member>
-        <member name="M:LoongEgg.UdpCore.JsonPackConfig.DeserializeFromFile(System.String)">
+        <member name="M:LoongEgg.UdpCore.UdpPack.DeserializeFromFile(System.String)">
             <summary>
             从指定的文件反序列化数据包的定义
             </summary>
             <param name="path">文件路径</param>
             <returns>反序列化后的数据包</returns>
         </member>
-        <member name="M:LoongEgg.UdpCore.JsonPackConfig.SerializeToJsonString">
+        <member name="M:LoongEgg.UdpCore.UdpPack.SerializeToJsonString">
             <summary>
             将协议转换为json字符串形式
             </summary>
             <returns></returns>
         </member>
-        <member name="M:LoongEgg.UdpCore.JsonPackConfig.ToString">
+        <member name="M:LoongEgg.UdpCore.UdpPack.ToString">
             <summary>
             将所有的数据协议项转换为一个字符串
             </summary> 
-        </member>
-        <member name="T:LoongEgg.UdpCore.UdpReceivedEvent">
-            <summary>
-            Udp接收事件
-            </summary>
         </member>
         <member name="T:LoongEgg.UdpCore.UdpReceivedEventArgs">
             <summary>
@@ -139,6 +166,11 @@
             </summary>
             <param name="buffer"></param>
         </member>
+        <member name="T:LoongEgg.UdpCore.UdpReceivedEvent">
+            <summary>
+            Udp接收事件
+            </summary>
+        </member>
         <member name="T:LoongEgg.UdpCore.UdpReceiver">
             <summary>
             Udp接收器
@@ -146,7 +178,7 @@
         </member>
         <member name="E:LoongEgg.UdpCore.UdpReceiver.MessageRecieved">
             <summary>
-            接收到新的消息
+            接收到新消息事件
             </summary>
         </member>
         <member name="F:LoongEgg.UdpCore.UdpReceiver.DefaultConfigFile">
@@ -174,6 +206,11 @@
             接收器标识
             </summary>
         </member>
+        <member name="M:LoongEgg.UdpCore.UdpReceiver.#ctor">
+            <summary>
+            默认构造函数
+            </summary>
+        </member>
         <member name="M:LoongEgg.UdpCore.UdpReceiver.#ctor(System.Int32,System.String)">
             <summary>
             创建一个新的接收器
@@ -181,22 +218,11 @@
             <param name="port">端口号</param>
             <param name="groupAddress">组地址</param>
         </member>
-        <member name="M:LoongEgg.UdpCore.UdpReceiver.#ctor">
-            <summary>
-            默认构造函数
-            </summary>
-        </member>
         <member name="M:LoongEgg.UdpCore.UdpReceiver.DefaultConsole(System.Boolean)">
             <summary>
             默认控制台程序实现
             </summary>
             <param name="useDefaultConfig">default=true, 使用默认的配置文件</param>
-        </member>
-        <member name="M:LoongEgg.UdpCore.UdpReceiver.ReaderAsync">
-            <summary>
-            接收器工作
-            </summary> 
-            <returns></returns>
         </member>
         <member name="M:LoongEgg.UdpCore.UdpReceiver.ReceiveAsync">
             <summary>
@@ -214,19 +240,40 @@
             <summary>
             将数组转义到确切的UDP配置定义
             </summary>
-            <param name="args"></param>
+            <param name="args">命令参数</param>
             <param name="port">端口号</param>
             <param name="group">组地址</param>
             <param name="tag">识别标签</param>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpReceiver.ReaderAsync">
+            <summary>
+            接收器工作
+            </summary> 
+            <returns></returns>
         </member>
         <member name="T:LoongEgg.UdpCore.UdpSender">
             <summary>
             Udp发送器
             </summary>
         </member>
-        <member name="P:LoongEgg.UdpCore.UdpSender.EndPoint">
+        <member name="F:LoongEgg.UdpCore.UdpSender.EndPoint">
             <summary>
             IP端口
+            </summary>
+        </member>
+        <member name="F:LoongEgg.UdpCore.UdpSender.UdpClient">
+            <summary>
+            Udp端口
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpSender.Port">
+            <summary>
+            端口号
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpSender.IsBroadCast">
+            <summary>
+            组播
             </summary>
         </member>
         <member name="P:LoongEgg.UdpCore.UdpSender.GroupAddress">
@@ -234,14 +281,53 @@
             组地址
             </summary>
         </member>
+        <member name="P:LoongEgg.UdpCore.UdpSender.HostName">
+            <summary>
+            主机名字
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpSender.LittleEndian">
+            <summary>
+            小端在前？
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpSender.IsIpV6">
+            <summary>
+            IpV6模式？
+            </summary>
+        </member>
+        <member name="P:LoongEgg.UdpCore.UdpSender.Tag">
+            <summary>
+            标识
+            </summary>
+        </member>
         <member name="M:LoongEgg.UdpCore.UdpSender.#ctor(System.Int32,System.Boolean,System.String,System.Boolean)">
             <summary>
-            Udp发送器的构造器
+            Udp发送器的构造器, 创建后不要忘记调用<see cref="M:LoongEgg.UdpCore.UdpSender.Init"/>进行初始化
             </summary>
             <param name="port">端口号</param>
             <param name="isBroadcast">组播?</param> 
             <param name="groupAddress">组地址</param>
             <param name="isIpV6">IpV6模式?</param>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpSender.#ctor">
+            <summary>
+            默认构造器, 创建后不要忘记调用<see cref="M:LoongEgg.UdpCore.UdpSender.Init"/>进行初始化
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpSender.CreatFromConfig(System.String)">
+            <summary>
+            从指定的配置文件创建一个发送器
+            </summary>
+            <param name="path">配置文件路径</param>
+            <returns></returns>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpSender.SendAsync(System.String)">
+            <summary>
+            发送信息
+            </summary>
+            <param name="message">待发送的信息</param>
+            <returns></returns>
         </member>
         <member name="M:LoongEgg.UdpCore.UdpSender.GetIPEndPoint(System.Int32,System.Boolean,System.String,System.String,System.Boolean)">
             <summary>
@@ -254,12 +340,26 @@
             <param name="isIpV6">IpV6模式?</param>
             <returns></returns>
         </member>
-        <member name="M:LoongEgg.UdpCore.UdpSender.SendAsync(System.String)">
+        <member name="M:LoongEgg.UdpCore.UdpSender.Init">
             <summary>
-            发送信息
+            初始化端口
             </summary>
-            <param name="message">待发送的信息</param>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpSender.ToString">
+            <summary>
+            将配置属性转为字符串
+            </summary>
             <returns></returns>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpSender.Dispose">
+            <summary>
+            <see cref="M:System.IDisposable.Dispose"/>
+            </summary>
+        </member>
+        <member name="M:LoongEgg.UdpCore.UdpSender.Finalize">
+            <summary>
+            类型终结器
+            </summary>
         </member>
     </members>
 </doc>

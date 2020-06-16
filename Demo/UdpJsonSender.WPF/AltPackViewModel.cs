@@ -17,7 +17,7 @@ namespace UdpJsonSender.WPF
     {
         internal static AltPackViewModel DesignInstance { get; }
         = new AltPackViewModel(
-            JsonPackConfig.DeserializeFromFile(
+            UdpPack.DeserializeFromFile(
                 @"E:\Published\LoongEgg.UdpCore\UdpJsonSender.WPF\AltPack.json")); // 根据你自己实际的文件路径写
 
         public string PackName
@@ -37,7 +37,7 @@ namespace UdpJsonSender.WPF
         public AltViewModel Gps { get; set; }
         public AltViewModel Baro { get; set; }
 
-        public AltPackViewModel(JsonPackConfig config)
+        public AltPackViewModel(UdpPack config)
         {
             Gps = new AltViewModel
             {
@@ -66,7 +66,7 @@ namespace UdpJsonSender.WPF
         /// </summary>
         /// <param name="config">json配置实例</param>
         /// <param name="port">端口号</param>
-        public AltPackViewModel(JsonPackConfig config, int port) : this(config)
+        public AltPackViewModel(UdpPack config, int port) : this(config)
         {
             Gps.PropertyChanged += OnPropertyChanged;
             Sender = new UdpSender(port, true);

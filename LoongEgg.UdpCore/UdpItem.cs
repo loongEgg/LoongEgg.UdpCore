@@ -4,16 +4,16 @@
  | 创建时间：2020/6/12 20:24:28
  | 主要用途：数据包中单个数据项的定义
  | 更改记录：
- |			 时间		版本		更改
+ | 时间         版本		更改
+ | 2020-06-16  2.1.1    ItemConfig更名为UdpItem
  */
-using System.Collections.Generic;
 
 namespace LoongEgg.UdpCore
-{ 
+{
     /// <summary>
     /// 单个数据项定义
     /// </summary>
-    public class ItemConfig
+    public class UdpItem
     {
         /// <summary>
         /// 数据名称
@@ -29,12 +29,7 @@ namespace LoongEgg.UdpCore
         /// 字节长度
         /// </summary>
         public int Length { get; set; }
-
-        /// <summary>
-        /// 大端在前？
-        /// </summary>
-        public bool BigEndian { get; set; }
-
+         
         /// <summary>
         /// 数据精度，精度乘以传进来的数据=实际的数值
         /// </summary>
@@ -61,7 +56,7 @@ namespace LoongEgg.UdpCore
         /// <returns>格式化后的定义信息</returns>
         public override string ToString()
         {
-            return $"Name={Name}, Unit={Unit}, Resolution={Resolution}, Signed=" 
+            return $"Name={Name}, Unit={Unit}, Length={Length}, Resolution={Resolution}, Signed=" 
                 + (Signed ? "true" : "false") 
                 + $", Maximum={Maximum}, Minimum={Minimum}";
         }

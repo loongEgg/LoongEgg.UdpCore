@@ -1,0 +1,9 @@
+﻿{
+  "Port": 2233,
+  "IsBroadCast": true,
+  "GroupAddress": null,
+  "HostName": null,
+  "LittleEndian": false,
+  "IsIpV6": false,
+  "Tag": "default receiver"
+}

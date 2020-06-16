@@ -10,7 +10,8 @@ using Newtonsoft.Json;
  | 创建时间：2020/6/12 20:41:39
  | 主要用途：从json文件读取数据包协议
  | 更改记录：
- |			 时间		版本		更改
+ | 时间         版本		更改
+ | 2020-06-16  2.1.1    JsonPackConfig更名为UdpPack
  */
 
 namespace LoongEgg.UdpCore
@@ -18,8 +19,14 @@ namespace LoongEgg.UdpCore
     /// <summary>
     /// 数据包，可以直接从json文件反序列化
     /// </summary>
-    public class JsonPackConfig
+    public class UdpPack
     {
+
+        /// <summary>
+        /// 大端在前？
+        /// </summary>
+        public bool BigEndian { get; set; }
+
         /// <summary>
         /// 当前包的名字
         /// </summary> 
@@ -51,19 +58,19 @@ namespace LoongEgg.UdpCore
         /// <summary>
         /// 数据对象定义的集合
         /// </summary>
-        public ItemConfig[] Items { get; set; }
+        public UdpItem[] Items { get; set; }
 
         /// <summary>
         /// 从指定的文件反序列化数据包的定义
         /// </summary>
         /// <param name="path">文件路径</param>
         /// <returns>反序列化后的数据包</returns>
-        public static JsonPackConfig DeserializeFromFile(string path)
+        public static UdpPack DeserializeFromFile(string path)
         {
             using (StreamReader reader = File.OpenText(path))
             {
                 JsonSerializer serializer = JsonSerializer.Create();
-                var pack = serializer.Deserialize(reader, typeof(JsonPackConfig)) as JsonPackConfig;
+                var pack = serializer.Deserialize(reader, typeof(UdpPack)) as UdpPack;
                 return pack;
             } 
         }

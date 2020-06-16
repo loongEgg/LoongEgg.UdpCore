@@ -32,8 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LoongEgg.LoongLog, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LoongEgg.LoongLog.2.0.0\lib\net45\LoongEgg.LoongLog.dll</HintPath>
+    <Reference Include="LoongEgg.LoongLog, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\LoongEgg.LoongLog.2.1.0\lib\net45\LoongEgg.LoongLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

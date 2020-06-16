@@ -1,12 +1,12 @@
 ﻿using LoongEgg.LoongLog;
+using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Linq;
 
 /* 
  | 个人微信：InnerGeeker
@@ -26,34 +26,17 @@ namespace LoongEgg.UdpCore
     public delegate void UdpReceivedEvent(object sender, UdpReceivedEventArgs args);
 
     /// <summary>
-    /// Udp接收事件参数
-    /// </summary>
-    public class UdpReceivedEventArgs: EventArgs
-    {
-        /// <summary>
-        /// 接收到的缓存信息
-        /// </summary>
-        public byte[] Buffer { get; set; }
-
-        /// <summary>
-        /// 默认构造器
-        /// </summary>
-        /// <param name="buffer"></param>
-        public UdpReceivedEventArgs(byte[] buffer)
-        {
-            Buffer = buffer;
-        }
-    }
-    /// <summary>
     /// Udp接收器
     /// </summary>
     public class UdpReceiver
     {
+        /*------------------------------------ Events -------------------------------------*/
         /// <summary>
-        /// 接收到新的消息
+        /// 接收到新消息事件
         /// </summary>
         public event UdpReceivedEvent MessageRecieved;
 
+        /*------------------------------------ Fields -------------------------------------*/
         /// <summary>
         /// 默认配置文件
         /// </summary>
@@ -69,6 +52,7 @@ namespace LoongEgg.UdpCore
             Environment.NewLine + "           -t tag" +
             Environment.NewLine + "     Info: config options will be saved as config.udpreceiver.json";
 
+        /*---------------------------------- Properties -----------------------------------*/
         /// <summary>
         /// 端口号
         /// </summary>
@@ -84,6 +68,12 @@ namespace LoongEgg.UdpCore
         /// </summary>
         public string Tag { get; set; }
 
+        /*----------------------------------- Constructor ---------------------------------*/
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        public UdpReceiver() { }
+
         /// <summary>
         /// 创建一个新的接收器
         /// </summary>
@@ -95,17 +85,24 @@ namespace LoongEgg.UdpCore
             Port = port;
         }
 
-        /// <summary>
-        /// 默认构造函数
-        /// </summary>
-        public UdpReceiver() { }
-
+        /*--------------------------------- Public Methods --------------------------------*/
         /// <summary>
         /// 默认控制台程序实现
         /// </summary>
         /// <param name="useDefaultConfig">default=true, 使用默认的配置文件</param>
         public static UdpReceiver DefaultConsole(bool useDefaultConfig = true)
         {
+            string hostName = Dns.GetHostName();
+            IPAddress[] IPs = Dns.GetHostAddresses(hostName);
+            Logger.Info($"HostName: {hostName}, Local IP(s):");
+            if (IPs.Any())
+            {
+                IPs.ToList().ForEach(ip =>
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        Logger.Info($"    {ip.ToString()}");
+                });
+            }
             Logger.Info($"Try reading default UDP receiver config:{DefaultConfigFile}");
 
             UdpReceiver receiver = null;
@@ -139,8 +136,8 @@ namespace LoongEgg.UdpCore
                     if (port != 0)
                     {
                         receiver = new UdpReceiver { Port = port, GroupAddress = group, Tag = tag };
-                        Logger.Info("Udp initial as" + receiver.ToString() + "?");
-                        Logger.Info($"Enter Y/y to confirm, and save as {DefaultConfigFile}");
+                        Logger.Info("Udp initial as: " + receiver.ToString() + "?");
+                        Logger.Info($"Enter Y/y to confirm, and save as [{DefaultConfigFile}]. OR any other keys to reinput.");
                         unconfig = !(Console.ReadLine().ToLower() == "y");
                     }
                     else
@@ -148,6 +145,13 @@ namespace LoongEgg.UdpCore
                         Logger.Warn("option missed: -p [port number] ");
                     }
                 } while (unconfig);
+                string json = JsonConvert.SerializeObject(receiver, Formatting.Indented);
+                using (StreamWriter writer = File.CreateText(DefaultConfigFile))
+                {
+                    writer.Write(json);
+                    writer.Flush();
+                    writer.Close();
+                }
             }
             return receiver;
         }
@@ -156,7 +160,68 @@ namespace LoongEgg.UdpCore
         /// 接收器工作
         /// </summary> 
         /// <returns></returns>
-        [Obsolete("使用ReceiveAsync()")]
+        public async Task ReceiveAsync()
+        {
+            using (var client = new UdpClient(Port))
+            {
+                if (GroupAddress != null)
+                {
+                    Logger.Debug($"Join Multicast Group = {GroupAddress}");
+                    client.JoinMulticastGroup(IPAddress.Parse(GroupAddress));
+                }
+
+                Logger.Debug("Start Listening...Sending in [stop] to stop listening");
+                bool completed;
+                do
+                {
+                    UdpReceiveResult result = await client.ReceiveAsync();
+                    byte[] datagram = result.Buffer;
+                    MessageRecieved?.Invoke(this, new UdpReceivedEventArgs(datagram));
+                    string received = Encoding.UTF8.GetString(datagram);
+                    Logger.Info($"Received (from {result.RemoteEndPoint.Address}) < {received}");
+                    completed = (received.ToLower() == "stop");
+                } while (!completed);
+
+                if (GroupAddress != null)
+                {
+                    client.DropMulticastGroup(IPAddress.Parse(GroupAddress));
+                }
+
+                Logger.Warn("Listening stop command received.");
+                Logger.Warn("Udp is stopping...");
+            }
+        }
+
+        /// <summary>
+        /// 显示Tag、Port、GroupAddress等详细信息
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"{nameof(Port)}={Port}, {nameof(GroupAddress)}={GroupAddress ?? "null"}, {nameof(Tag)}={(Tag ?? "null")}";
+        }
+
+        /*--------------------------------- Private Methods -------------------------------*/
+        /// <summary>
+        /// 将数组转义到确切的UDP配置定义
+        /// </summary>
+        /// <param name="args">命令参数</param>
+        /// <param name="port">端口号</param>
+        /// <param name="group">组地址</param>
+        /// <param name="tag">识别标签</param>
+        private static void ParseCommandOptions(string[] args, out int port, out string group, out string tag)
+        {
+            UdpHelper.TryParseCommandParam(args, "-p", out port);
+            UdpHelper.TryParseCommandParam(args, "-g", out group);
+            UdpHelper.TryParseCommandParam(args, "-t", out tag);
+        }
+
+        #region V3.0废除
+        /// <summary>
+        /// 接收器工作
+        /// </summary> 
+        /// <returns></returns>
+        [Obsolete("V3.0, 废弃，使用ReceiveAsync()")]
         public async Task ReaderAsync()
         {
             using (var client = new UdpClient(Port))
@@ -186,69 +251,7 @@ namespace LoongEgg.UdpCore
                 Logger.Info("Receiver closed");
             }
         }
-
-        /// <summary>
-        /// 接收器工作
-        /// </summary> 
-        /// <returns></returns>
-        public async Task ReceiveAsync()
-        {
-            using (var client = new UdpClient(Port))
-            {
-                if (GroupAddress != null)
-                {
-                    Logger.Debug($"Join Multicast Group = {GroupAddress}");
-                    client.JoinMulticastGroup(IPAddress.Parse(GroupAddress));
-                }
-
-                bool completed;
-                do
-                {
-                    Logger.Debug("Start Listening...Sending in [stop] to stop listening");
-                    UdpReceiveResult result = await client.ReceiveAsync();
-                    byte[] datagram = result.Buffer;
-                    MessageRecieved?.Invoke(this, new UdpReceivedEventArgs(datagram));
-                    string received = Encoding.UTF8.GetString(datagram);
-                    Logger.Info($"Received (from {result.RemoteEndPoint.Address}) > {received}");
-                    completed = (received.ToLower() == "stop");
-                } while (!completed);
-
-                if (GroupAddress != null)
-                {
-                    client.DropMulticastGroup(IPAddress.Parse(GroupAddress));
-                }
-
-                Logger.Warn("Listening stop command received."); 
-                Logger.Warn("Udp is stopping..."); 
-            }
-        }
-
-        /// <summary>
-        /// 显示Tag、Port、GroupAddress等详细信息
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return $"{nameof(Port)}={Port}, {nameof(Tag)}={(Tag ?? "null")}, {nameof(GroupAddress)}={GroupAddress ?? "null"}";
-        }
-
-        /// <summary>
-        /// 将数组转义到确切的UDP配置定义
-        /// </summary>
-        /// <param name="args"></param>
-        /// <param name="port">端口号</param>
-        /// <param name="group">组地址</param>
-        /// <param name="tag">识别标签</param>
-        private static void ParseCommandOptions(string[] args, out int port, out string group, out string tag)
-        {
-            int ip = args.Contains("-p") ? Array.IndexOf(args, "-p") + 1 : -1;
-            int ig = args.Contains("-g") ? Array.IndexOf(args, "-g") + 1 : -1;
-            int it = args.Contains("-t") ? Array.IndexOf(args, "-t") + 1 : -1;
-
-            port = (ip > 0 && ip < args.Length) ? int.Parse(args[ip]) : 0;
-            group = (ig > 0 && ig < args.Length) ? args[ig] : null;
-            tag = (it > 0 && it < args.Length) ? args[it] : null;
-        }
+        #endregion
 
     }
 }

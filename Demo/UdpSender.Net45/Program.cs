@@ -7,13 +7,12 @@ namespace UdpSender.Net45
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-            Logger.Enable(Loggers.ConsoleLogger | Loggers.DebugLogger);
-            var sender = new LoongEgg.UdpCore.UdpSender(2233, true);
+            Logger.Enable(Loggers.ConsoleLogger | Loggers.DebugLogger, false);
+            var sender = new LoongEgg.UdpCore.UdpSender(2233, true); 
             bool stop = false;
+            Console.WriteLine("Enter a message or stop/s to exit");
             do
             {
-                Console.WriteLine("Enter a message or stop/s to exit");
                 string input = Console.ReadLine();
                 stop = input.ToLower() == "stop" | input.ToLower() == "s";
                 sender.SendAsync($"{input}");

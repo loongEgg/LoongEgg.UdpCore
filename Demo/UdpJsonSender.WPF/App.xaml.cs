@@ -17,7 +17,7 @@ namespace UdpJsonSender.WPF
             IoC = new Container();
 
             Logger.EnableDebugLogger();
-            var config = JsonPackConfig.DeserializeFromFile(AppDomain.CurrentDomain.BaseDirectory + "AltPack.json");
+            var config = UdpPack.DeserializeFromFile(AppDomain.CurrentDomain.BaseDirectory + "AltPack.json");
             IoC.AddOrUpdate(new AltPackViewModel( config, 2233)); // 端口号与接收器一致
         }
 

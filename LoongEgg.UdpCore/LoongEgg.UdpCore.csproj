@@ -31,9 +31,13 @@ An Udp Sender &amp; Receiver using json file to configure</Description>
 
   <ItemGroup>
     <None Remove="config.udpreceiver.json" />
+    <None Remove="config.udpsender.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="config.udpsender.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="config.udpreceiver.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
