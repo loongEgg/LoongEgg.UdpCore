@@ -13,6 +13,11 @@
 namespace LoongEgg.UdpCore
 {
     /// <summary>
+    /// Udp接收事件
+    /// </summary>
+    public delegate void UdpReceivedEvent(object sender, UdpReceivedEventArgs args);
+
+    /// <summary>
     /// Udp接收事件参数
     /// </summary>
     public class UdpReceivedEventArgs: EventArgs
@@ -30,5 +35,6 @@ namespace LoongEgg.UdpCore
         {
             Buffer = buffer;
         }
+
     }
 }

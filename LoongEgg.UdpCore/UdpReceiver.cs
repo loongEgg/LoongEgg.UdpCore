@@ -20,10 +20,7 @@ using System.Threading.Tasks;
  */
 namespace LoongEgg.UdpCore
 {
-    /// <summary>
-    /// Udp接收事件
-    /// </summary>
-    public delegate void UdpReceivedEvent(object sender, UdpReceivedEventArgs args);
+   
 
     /// <summary>
     /// Udp接收器

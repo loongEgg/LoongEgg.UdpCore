@@ -174,6 +174,44 @@ namespace LoongEgg.UdpCore
             }
         }
 
+
+        /// <summary>
+        /// 初始化端口
+        /// </summary>
+        public void Init()
+        {
+            try
+            {
+                EndPoint = GetIPEndPoint(Port, IsBroadCast, HostName, GroupAddress, IsIpV6).Result;
+                UdpClient = new UdpClient
+                {
+                    EnableBroadcast = IsBroadCast
+                };
+                if (GroupAddress != null && GroupAddress.ToLower() != "null")
+                {
+                    UdpClient.JoinMulticastGroup(IPAddress.Parse(GroupAddress));
+                }
+                Logger.Info("Udp sender initialized");
+                Logger.Info(this.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 将配置属性转为字符串
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString() =>
+            Environment.NewLine + $"UdpSender: "
+            + Environment.NewLine + $"    {nameof(Port)}={Port}"
+            + Environment.NewLine + $"    {nameof(IsBroadCast)}={IsBroadCast}"
+            + Environment.NewLine + $"    {nameof(HostName)}={HostName}"
+            + Environment.NewLine + $"    {nameof(GroupAddress)}={GroupAddress}"
+            + Environment.NewLine + $"    {nameof(IsIpV6)}={IsIpV6}";
+
         /*--------------------------------- Private Methods -------------------------------*/
         /// <summary>
         /// 获取指定的IP端口
@@ -235,43 +273,6 @@ namespace LoongEgg.UdpCore
             }
             return endpoint;
         }
-
-        /// <summary>
-        /// 初始化端口
-        /// </summary>
-        public void Init()
-        {
-            try
-            {
-                EndPoint = GetIPEndPoint(Port, IsBroadCast, HostName, GroupAddress, IsIpV6).Result;
-                UdpClient = new UdpClient
-                {
-                    EnableBroadcast = IsBroadCast
-                };
-                if (GroupAddress != null && GroupAddress.ToLower() != "null")
-                {
-                    UdpClient.JoinMulticastGroup(IPAddress.Parse(GroupAddress));
-                }
-                Logger.Info("Udp sender initialized");
-                Logger.Info(this.ToString() );
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        /// <summary>
-        /// 将配置属性转为字符串
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString() =>
-            Environment.NewLine + $"UdpSender: "
-            + Environment.NewLine + $"    {nameof(Port)}={Port}"
-            + Environment.NewLine + $"    {nameof(IsBroadCast)}={IsBroadCast}"
-            + Environment.NewLine + $"    {nameof(HostName)}={HostName}"
-            + Environment.NewLine + $"    {nameof(GroupAddress)}={GroupAddress}"
-            + Environment.NewLine + $"    {nameof(IsIpV6)}={IsIpV6}";
 
         /*------------------------------------ Destructor ----------------------------------*/
         private bool disposed;
