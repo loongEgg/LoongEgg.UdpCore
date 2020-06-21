@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using LoongEgg.LoongLog;
-using LoongEgg.UdpCore;
+using LoongEgg.LoongLog; 
 
 namespace Lesson.UdpCore.Sender
 {
@@ -12,8 +11,7 @@ namespace Lesson.UdpCore.Sender
     {
         static void Main(string[] args)
         {
-            var sender = UdpSender.CreatFromConfig();
-            sender.Init();
+            var sender = new UdpSender(); 
             Logger.Enable(Loggers.ConsoleLogger);
             bool stop = false;
             do

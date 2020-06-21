@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.1022
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoongEgg.UdpCore", "LoongEgg.UdpCore\LoongEgg.UdpCore.csproj", "{DC378F4D-DBB8-4A38-9B94-8223C818F4AA}"
 EndProject
@@ -37,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson.UdpCore.Receiver", "Lesson\Lesson.UdpCore.Receiver\Lesson.UdpCore.Receiver.csproj", "{11E9A3E2-474A-4FC2-890B-7B6F0A8AEC6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson.UdpCore.Sender", "Lesson\Lesson.UdpCore.Sender\Lesson.UdpCore.Sender.csproj", "{8080212C-52F0-4207-B52E-047BAC5ED659}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson.JsonDemo", "Lesson\Lesson.JsonDemo\Lesson.JsonDemo.csproj", "{F09FD1D4-EAE8-4BDF-8E2F-A3886140BA7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -88,6 +90,10 @@ Global
 		{8080212C-52F0-4207-B52E-047BAC5ED659}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8080212C-52F0-4207-B52E-047BAC5ED659}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8080212C-52F0-4207-B52E-047BAC5ED659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F09FD1D4-EAE8-4BDF-8E2F-A3886140BA7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F09FD1D4-EAE8-4BDF-8E2F-A3886140BA7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F09FD1D4-EAE8-4BDF-8E2F-A3886140BA7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F09FD1D4-EAE8-4BDF-8E2F-A3886140BA7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{04EE944A-6A19-483E-B32F-16CD25DADD04} = {14DA95E8-1057-430D-BBB5-DAC660BF6C6B}
 		{11E9A3E2-474A-4FC2-890B-7B6F0A8AEC6C} = {14DA95E8-1057-430D-BBB5-DAC660BF6C6B}
 		{8080212C-52F0-4207-B52E-047BAC5ED659} = {14DA95E8-1057-430D-BBB5-DAC660BF6C6B}
+		{F09FD1D4-EAE8-4BDF-8E2F-A3886140BA7A} = {14DA95E8-1057-430D-BBB5-DAC660BF6C6B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0632C071-0A4F-4CAF-B1CF-BFEEBB3E0AEC}

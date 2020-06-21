@@ -1,6 +1,7 @@
 ﻿using LoongEgg.LoongLog;
 using System;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace LoongEgg.UdpCore.Check
 {

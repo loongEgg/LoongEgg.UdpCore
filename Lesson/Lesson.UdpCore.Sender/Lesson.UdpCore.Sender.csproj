@@ -35,9 +35,6 @@
     <Reference Include="LoongEgg.LoongLog, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\LoongEgg.LoongLog.2.1.0\lib\net45\LoongEgg.LoongLog.dll</HintPath>
     </Reference>
-    <Reference Include="LoongEgg.UdpCore, Version=2.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\LoongEgg.UdpCore.2.2.0\lib\net45\LoongEgg.UdpCore.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -56,11 +53,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="config.udpreceiver.json" />
     <None Include="config.udpsender.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lesson.UdpCore\Lesson.UdpCore.csproj">
+      <Project>{04ee944a-6a19-483e-b32f-16cd25dadd04}</Project>
+      <Name>Lesson.UdpCore</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
